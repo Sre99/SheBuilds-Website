@@ -1,0 +1,909 @@
+<!-- DEVELOPER: Niya Emery, IS117, Spring 2026 -->
+<!-- AI ASSISTANCE: Claude AI (Anthropic) used for JavaScript logic and Bootstrap layout -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SheBuilds | History</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <style>
+    /* ===========================
+       CSS VARIABLES
+    =========================== */
+    :root {
+      --rose:      #e8557a;
+      --rose-deep: #c73d62;
+      --blush:     #fce8ee;
+      --petal:     #f9d0dc;
+      --mauve:     #8b3a55;
+      --cream:     #fff8f9;
+      --charcoal:  #2b1a20;
+      --mid:       #6b4554;
+      --border:    rgba(232,85,122,.18);
+      --shadow:    rgba(199,61,98,.12);
+    }
+
+    /* ===========================
+       BASE
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    a { text-decoration: none; }
+
+    /* ===========================
+       NAVBAR
+    =========================== */
+    .navbar {
+      background: rgba(255,248,249,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--rose-deep) !important;
+      letter-spacing: -0.5px;
+    }
+
+    .navbar-brand span { color: var(--charcoal); }
+
+    .nav-link {
+      color: var(--mid) !important;
+      font-weight: 500;
+      font-size: .92rem;
+      padding: .4rem .9rem !important;
+      border-radius: 20px;
+      transition: background .2s, color .2s;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+      background: var(--petal);
+      color: var(--rose-deep) !important;
+    }
+
+    .dropdown-menu {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px var(--shadow);
+      background: #fff;
+      padding: .5rem;
+    }
+
+    .dropdown-item {
+      border-radius: 8px;
+      font-size: .9rem;
+      color: var(--mid);
+      font-weight: 500;
+      padding: .45rem .9rem;
+      transition: background .15s;
+    }
+
+    .dropdown-item:hover {
+      background: var(--blush);
+      color: var(--rose-deep);
+    }
+
+    .navbar-toggler {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23c73d62' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .btn-rose {
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: .75rem 2rem;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px var(--shadow);
+    }
+
+    .btn-rose:hover {
+      background: var(--rose-deep);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline-rose {
+      background: transparent;
+      color: var(--rose-deep);
+      border: 2px solid var(--rose);
+      border-radius: 30px;
+      padding: .73rem 1.8rem;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: background .2s, color .2s, transform .15s;
+    }
+
+    .btn-outline-rose:hover {
+      background: var(--petal);
+      color: var(--rose-deep);
+      transform: translateY(-2px);
+    }
+
+    /* ===========================
+       PAGE HEADER
+    =========================== */
+    .page-header {
+      background: linear-gradient(135deg, var(--blush) 0%, var(--cream) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 0 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--petal) 0%, transparent 70%);
+      top: -200px; right: -100px;
+      border-radius: 50%;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: .75rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--charcoal);
+      margin-bottom: .75rem;
+    }
+
+    .page-header p {
+      color: var(--mid);
+      font-size: 1rem;
+      font-weight: 300;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ===========================
+       PIONEER CARDS (Bootstrap Cards)
+    =========================== */
+    .pioneers-section {
+      padding: 5rem 0;
+      background: #fff;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 900;
+      color: var(--charcoal);
+      line-height: 1.15;
+    }
+
+    .pioneer-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: #fff;
+      overflow: hidden;
+      height: 100%;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .pioneer-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px var(--shadow);
+    }
+
+    .pioneer-card-top {
+      background: linear-gradient(135deg, var(--petal), var(--blush));
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .pioneer-avatar {
+      width: 60px; height: 60px;
+      background: var(--rose);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px var(--shadow);
+    }
+
+    .pioneer-card-top h4 {
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      margin-bottom: .1rem;
+    }
+
+    .pioneer-card-top span {
+      font-size: .78rem;
+      color: var(--mid);
+      font-weight: 400;
+    }
+
+    .pioneer-card-body {
+      padding: 1.4rem;
+    }
+
+    .pioneer-card-body p {
+      font-size: .9rem;
+      color: var(--mid);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .pioneer-tag {
+      display: inline-block;
+      background: var(--blush);
+      color: var(--rose-deep);
+      border-radius: 12px;
+      padding: .25rem .75rem;
+      font-size: .75rem;
+      font-weight: 600;
+    }
+
+    /* ===========================
+       FEATURED STORY (float image)
+    =========================== */
+    .featured-section {
+      padding: 5rem 0;
+      background: var(--cream);
+    }
+
+    .featured-img {
+      float: left;
+      width: 180px; height: 180px;
+      background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 5rem;
+      margin: 0 2rem 1rem 0;
+      box-shadow: 0 12px 40px var(--shadow);
+      flex-shrink: 0;
+    }
+
+    .featured-section h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--charcoal);
+      margin-bottom: .75rem;
+    }
+
+    .featured-section p {
+      color: var(--mid);
+      font-weight: 300;
+      line-height: 1.8;
+      font-size: .97rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ===========================
+       TIMELINE STRIP
+    =========================== */
+    .timeline-section {
+      padding: 5rem 0;
+      background: #fff;
+    }
+
+    .hline {
+      list-style: none;
+      padding: 0; margin: 0;
+    }
+
+    .hline li {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding-bottom: 1.8rem;
+      border-left: 2px solid var(--petal);
+      padding-left: 1.5rem;
+      margin-left: 1rem;
+      position: relative;
+    }
+
+    .hline li::before {
+      content: '';
+      width: 12px; height: 12px;
+      background: var(--rose);
+      border-radius: 50%;
+      position: absolute;
+      left: -7px; top: 4px;
+      flex-shrink: 0;
+    }
+
+    .hline li:last-child {
+      border-left: 2px solid transparent;
+      padding-bottom: 0;
+    }
+
+    .hline-year {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--rose);
+      text-transform: uppercase;
+      white-space: nowrap;
+      min-width: 60px;
+    }
+
+    .hline-text strong {
+      display: block;
+      font-size: .95rem;
+      color: var(--charcoal);
+      margin-bottom: .2rem;
+    }
+
+    .hline-text span {
+      font-size: .88rem;
+      color: var(--mid);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* ===========================
+       NEWSLETTER CTA
+    =========================== */
+    .newsletter-section {
+      padding: 5rem 0;
+      background: var(--cream);
+    }
+
+    .newsletter-box {
+      background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+      border-radius: 28px;
+      padding: 3.5rem 3rem;
+      text-align: center;
+      color: #fff;
+    }
+
+    .newsletter-box h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin-bottom: .75rem;
+      color: #fff;
+    }
+
+    .newsletter-box p {
+      font-size: 1rem;
+      font-weight: 300;
+      opacity: .88;
+      max-width: 440px;
+      margin: 0 auto 1.8rem;
+      line-height: 1.7;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: .75rem;
+      max-width: 400px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .newsletter-form input[type="email"] {
+      flex: 1;
+      min-width: 200px;
+      border: none;
+      border-radius: 30px;
+      padding: .7rem 1.3rem;
+      font-size: .9rem;
+      outline: none;
+      color: var(--charcoal);
+      background: #fff;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--rose-deep);
+      border: none;
+      border-radius: 30px;
+      padding: .75rem 1.8rem;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn-white:hover {
+      background: var(--blush);
+      transform: translateY(-2px);
+    }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,.65);
+      padding: 3rem 0 2rem;
+    }
+
+    footer .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--rose);
+      margin-bottom: .5rem;
+    }
+
+    footer p { font-size: .85rem; line-height: 1.7; }
+
+    footer h6 {
+      color: rgba(255,255,255,.9);
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+    }
+
+    footer ul { list-style: none; padding: 0; margin: 0; }
+    footer ul li { margin-bottom: .5rem; }
+
+    footer ul li a {
+      color: rgba(255,255,255,.55);
+      font-size: .85rem;
+      transition: color .2s;
+    }
+
+    footer ul li a:hover { color: var(--rose); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .75rem;
+      font-size: .8rem;
+    }
+
+    .footer-legal a {
+      color: rgba(255,255,255,.45);
+      margin-left: 1.2rem;
+      transition: color .2s;
+    }
+
+    .footer-legal a:hover { color: var(--rose); }
+
+    /* ===========================
+       MEDIA QUERIES
+    =========================== */
+    @media (max-width: 576px) {
+      .featured-img {
+        float: none;
+        margin: 0 auto 2rem;
+        width: 120px; height: 120px;
+        font-size: 3rem;
+        display: flex;
+      }
+      .newsletter-box { padding: 2rem 1.2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-legal a:first-child { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================
+       NAVBAR
+  ===================== -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="myHomePage.html">She<span>Builds</span></a>
+
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+
+          <li class="nav-item">
+            <a class="nav-link" href="myHomePage.html">Home</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="blueprint.html"
+               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Blueprint
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="career-quiz.html">
+                <i class="bi bi-clipboard-check me-2"></i>Career Quiz
+              </a></li>
+              <li><a class="dropdown-item" href="learningPath.html">
+                <i class="bi bi-map me-2"></i>Learning Path
+              </a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" href="history.html">History</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="aboutme.html">About Me</a>
+          </li>
+
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-rose" href="contact.html">Contact</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =====================
+       PAGE HEADER
+  ===================== -->
+  <section class="page-header">
+    <div class="container position-relative">
+      <span class="section-label">Hidden no more</span>
+      <h1>Women Who Built Tech</h1>
+      <p>The history of computing is full of women who were overlooked, uncredited, and forgotten. Not anymore.</p>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       PIONEER CARDS (Bootstrap Cards)
+  ===================== -->
+  <section class="pioneers-section">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-6">
+          <span class="section-label">The pioneers</span>
+          <h2 class="section-title">Six women who changed everything.</h2>
+        </div>
+      </div>
+
+      <div class="row g-4">
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card pioneer-card border-0 h-100">
+            <div class="pioneer-card-top">
+              <div class="pioneer-avatar"><i class="bi bi-calculator-fill"></i></div>
+              <div>
+                <h4 class="card-title">Ada Lovelace</h4>
+                <span>1815 – 1852</span>
+              </div>
+            </div>
+            <div class="pioneer-card-body">
+              <p class="card-text">Often called the world's first computer programmer, Ada wrote the first algorithm intended to be processed by a machine — nearly 100 years before the first computer was built.</p>
+              <span class="pioneer-tag">Programming</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card pioneer-card border-0 h-100">
+            <div class="pioneer-card-top">
+              <div class="pioneer-avatar"><i class="bi bi-cpu-fill"></i></div>
+              <div>
+                <h4 class="card-title">Grace Hopper</h4>
+                <span>1906 – 1992</span>
+              </div>
+            </div>
+            <div class="pioneer-card-body">
+              <p class="card-text">Rear Admiral Grace Hopper invented the first compiler and helped develop COBOL, one of the earliest programming languages. She also popularized the term "debugging."</p>
+              <span class="pioneer-tag">Compilers & Languages</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card pioneer-card border-0 h-100">
+            <div class="pioneer-card-top">
+              <div class="pioneer-avatar"><i class="bi bi-rocket-takeoff-fill"></i></div>
+              <div>
+                <h4 class="card-title">Katherine Johnson</h4>
+                <span>1918 – 2020</span>
+              </div>
+            </div>
+            <div class="pioneer-card-body">
+              <p class="card-text">A NASA mathematician whose orbital mechanics calculations were critical to the success of the first U.S. crewed spaceflights. Her story was told in the film Hidden Figures.</p>
+              <span class="pioneer-tag">Space Computing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card pioneer-card border-0 h-100">
+            <div class="pioneer-card-top">
+              <div class="pioneer-avatar"><i class="bi bi-shield-lock-fill"></i></div>
+              <div>
+                <h4 class="card-title">Dorothy Vaughan</h4>
+                <span>1910 – 2008</span>
+              </div>
+            </div>
+            <div class="pioneer-card-body">
+              <p class="card-text">NASA's first Black supervisor, Dorothy taught herself and her team FORTRAN when electronic computers arrived — ensuring no one on her team was left behind by the technology shift.</p>
+              <span class="pioneer-tag">Leadership & FORTRAN</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card pioneer-card border-0 h-100">
+            <div class="pioneer-card-top">
+              <div class="pioneer-avatar"><i class="bi bi-globe2"></i></div>
+              <div>
+                <h4 class="card-title">Radia Perlman</h4>
+                <span>1951 – present</span>
+              </div>
+            </div>
+            <div class="pioneer-card-body">
+              <p class="card-text">Known as the "Mother of the Internet," Radia invented the Spanning Tree Protocol — a fundamental algorithm that makes modern internet networking possible.</p>
+              <span class="pioneer-tag">Networking</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card pioneer-card border-0 h-100">
+            <div class="pioneer-card-top">
+              <div class="pioneer-avatar"><i class="bi bi-stars"></i></div>
+              <div>
+                <h4 class="card-title">Hedy Lamarr</h4>
+                <span>1914 – 2000</span>
+              </div>
+            </div>
+            <div class="pioneer-card-body">
+              <p class="card-text">Famous as a Hollywood actress, Hedy co-invented frequency-hopping spread spectrum during WWII — technology that laid the groundwork for WiFi, GPS, and Bluetooth.</p>
+              <span class="pioneer-tag">Wireless Tech</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       FEATURED STORY (float image)
+  ===================== -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <span class="section-label">Featured story</span>
+          <div class="clearfix mt-3">
+
+            <!-- Float image wraps text -->
+            <div class="featured-img" aria-hidden="true">
+              <i class="bi bi-person-hearts"></i>
+            </div>
+
+            <h2>The ENIAC Programmers — the women history forgot.</h2>
+            <p>
+              In 1945, six women — Kay McNulty, Betty Jennings, Betty Snyder, Marlyn Wescoff,
+              Fran Bilas, and Ruth Lichterman — were selected to program ENIAC, one of the
+              world's first general-purpose electronic computers.
+            </p>
+            <p>
+              They received no formal training, no manuals, and no recognition. Working only
+              from circuit diagrams, they figured out how to program the machine entirely on
+              their own. Their work helped calculate ballistic trajectories for the U.S. Army
+              during World War II.
+            </p>
+            <p>
+              When ENIAC was unveiled to the public in 1946, the six women were not introduced.
+              They were not in the press photos. They were not mentioned. For decades, their
+              contributions were almost entirely erased from history.
+            </p>
+            <p>
+              Today, thanks to the work of historian Kathy Kleiman and the documentary
+              <em>Top Secret Rosies</em>, their story is finally being told.
+            </p>
+            <a href="https://eniacprogrammers.org" target="_blank" rel="noopener" class="btn btn-outline-rose mt-2">
+              Learn more &nbsp;<i class="bi bi-box-arrow-up-right"></i>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       TIMELINE
+  ===================== -->
+  <section class="timeline-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <span class="section-label">Key moments</span>
+          <h2 class="section-title mb-4">A brief timeline of women in computing.</h2>
+
+          <ul class="hline">
+            <li>
+              <div class="hline-year">1843</div>
+              <div class="hline-text">
+                <strong>Ada Lovelace publishes the first algorithm</strong>
+                <span>Written for Charles Babbage's Analytical Engine — a machine that was never built in her lifetime.</span>
+              </div>
+            </li>
+            <li>
+              <div class="hline-year">1944</div>
+              <div class="hline-text">
+                <strong>Grace Hopper joins the Harvard Mark I team</strong>
+                <span>One of the first programmers on the machine, she later invented the first compiler.</span>
+              </div>
+            </li>
+            <li>
+              <div class="hline-year">1945</div>
+              <div class="hline-text">
+                <strong>The ENIAC Six program the world's first computer</strong>
+                <span>Six women program ENIAC with no manual, no training, and no credit.</span>
+              </div>
+            </li>
+            <li>
+              <div class="hline-year">1958</div>
+              <div class="hline-text">
+                <strong>Dorothy Vaughan leads NASA's computing pool</strong>
+                <span>Becomes NASA's first Black supervisor and leads the transition to electronic computing.</span>
+              </div>
+            </li>
+            <li>
+              <div class="hline-year">1962</div>
+              <div class="hline-text">
+                <strong>Katherine Johnson calculates John Glenn's orbit</strong>
+                <span>Glenn insisted Johnson verify the electronic computer's numbers before he would fly.</span>
+              </div>
+            </li>
+            <li>
+              <div class="hline-year">1985</div>
+              <div class="hline-text">
+                <strong>Radia Perlman invents the Spanning Tree Protocol</strong>
+                <span>Her algorithm becomes the backbone of modern internet networking.</span>
+              </div>
+            </li>
+            <li>
+              <div class="hline-year">Today</div>
+              <div class="hline-text">
+                <strong>Women continue to shape the future of tech</strong>
+                <span>From AI research to cybersecurity to UX design — the work continues.</span>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       NEWSLETTER CTA
+  ===================== -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-box">
+        <span class="section-label" style="color:rgba(255,255,255,.7);">Stay informed</span>
+        <h2>Get more stories like these<br>in your inbox.</h2>
+        <p>Every month we spotlight a woman in tech history you should know about. Subscribe to the SheBuilds newsletter.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="your@email.com" aria-label="Email address" />
+          <button class="btn-white" type="button">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       FOOTER
+  ===================== -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+
+        <div class="col-lg-4">
+          <div class="brand">SheBuilds</div>
+          <p>A platform built for young women and high school girls who are curious about tech and STEM — by someone who's been exactly where you are.</p>
+        </div>
+
+        <div class="col-6 col-lg-2 offset-lg-1">
+          <h6>Explore</h6>
+          <ul>
+            <li><a href="myHomePage.html">Home</a></li>
+            <li><a href="blueprint.html">Blueprint</a></li>
+            <li><a href="career-quiz.html">Career Quiz</a></li>
+            <li><a href="learningPath.html">Learning Path</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-lg-2">
+          <h6>Learn</h6>
+          <ul>
+            <li><a href="history.html">History</a></li>
+            <li><a href="aboutme.html">About Me</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h6>Connect</h6>
+          <ul>
+            <li>
+              <a href="https://github.com" target="_blank" rel="noopener">
+                <i class="bi bi-github me-2"></i>GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com" target="_blank" rel="noopener">
+                <i class="bi bi-linkedin me-2"></i>LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 SheBuilds by Niya Emery. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Privacy Statement</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
