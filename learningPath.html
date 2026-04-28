@@ -1,0 +1,1017 @@
+<!-- AI ASSISTANCE: Claude AI (Anthropic) used for JavaScript logic and Bootstrap layout -->
+<!-- DEVELOPER: Niya Emery, IS117, Spring 2026 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SheBuilds | Learning Path</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <style>
+    /* ===========================
+       CSS VARIABLES
+    =========================== */
+    :root {
+      --rose:      #e8557a;
+      --rose-deep: #c73d62;
+      --blush:     #fce8ee;
+      --petal:     #f9d0dc;
+      --mauve:     #8b3a55;
+      --cream:     #fff8f9;
+      --charcoal:  #2b1a20;
+      --mid:       #6b4554;
+      --border:    rgba(232,85,122,.18);
+      --shadow:    rgba(199,61,98,.12);
+    }
+
+    /* ===========================
+       BASE
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    a { text-decoration: none; }
+
+    /* ===========================
+       NAVBAR
+    =========================== */
+    .navbar {
+      background: rgba(255,248,249,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--rose-deep) !important;
+      letter-spacing: -0.5px;
+    }
+
+    .navbar-brand span { color: var(--charcoal); }
+
+    .nav-link {
+      color: var(--mid) !important;
+      font-weight: 500;
+      font-size: .92rem;
+      padding: .4rem .9rem !important;
+      border-radius: 20px;
+      transition: background .2s, color .2s;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+      background: var(--petal);
+      color: var(--rose-deep) !important;
+    }
+
+    .dropdown-menu {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px var(--shadow);
+      background: #fff;
+      padding: .5rem;
+    }
+
+    .dropdown-item {
+      border-radius: 8px;
+      font-size: .9rem;
+      color: var(--mid);
+      font-weight: 500;
+      padding: .45rem .9rem;
+      transition: background .15s;
+    }
+
+    .dropdown-item:hover {
+      background: var(--blush);
+      color: var(--rose-deep);
+    }
+
+    .navbar-toggler {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23c73d62' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .btn-rose {
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: .75rem 2rem;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px var(--shadow);
+    }
+
+    .btn-rose:hover {
+      background: var(--rose-deep);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline-rose {
+      background: transparent;
+      color: var(--rose-deep);
+      border: 2px solid var(--rose);
+      border-radius: 30px;
+      padding: .73rem 1.8rem;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: background .2s, color .2s, transform .15s;
+    }
+
+    .btn-outline-rose:hover {
+      background: var(--petal);
+      color: var(--rose-deep);
+      transform: translateY(-2px);
+    }
+
+    /* ===========================
+       PAGE HEADER
+    =========================== */
+    .page-header {
+      background: linear-gradient(135deg, var(--blush) 0%, var(--cream) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 0 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--petal) 0%, transparent 70%);
+      top: -200px; left: -100px;
+      border-radius: 50%;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: .75rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--charcoal);
+      margin-bottom: .75rem;
+    }
+
+    .page-header p {
+      color: var(--mid);
+      font-size: 1rem;
+      font-weight: 300;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ===========================
+       TRACK SELECTOR
+    =========================== */
+    .track-section {
+      padding: 4rem 0 2rem;
+      background: #fff;
+    }
+
+    .track-btn {
+      background: var(--cream);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s, transform .15s;
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .track-btn:hover {
+      border-color: var(--rose);
+      background: var(--blush);
+      transform: translateY(-3px);
+    }
+
+    .track-btn.active {
+      border-color: var(--rose);
+      background: var(--petal);
+    }
+
+    .track-btn i {
+      font-size: 2rem;
+      color: var(--rose);
+      display: block;
+      margin-bottom: .5rem;
+    }
+
+    .track-btn strong {
+      display: block;
+      font-size: .95rem;
+      color: var(--charcoal);
+      margin-bottom: .2rem;
+    }
+
+    .track-btn span {
+      font-size: .8rem;
+      color: var(--mid);
+      font-weight: 300;
+    }
+
+    /* ===========================
+       WEEK CARDS (Bootstrap Cards)
+    =========================== */
+    .roadmap-section {
+      padding: 3rem 0 5rem;
+      background: #fff;
+    }
+
+    .week-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      height: 100%;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .week-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px var(--shadow);
+    }
+
+    .week-header {
+      background: linear-gradient(135deg, var(--petal), var(--blush));
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .week-num {
+      width: 40px; height: 40px;
+      background: var(--rose);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .week-header h4 {
+      font-size: 1rem;
+      color: var(--charcoal);
+      margin: 0;
+    }
+
+    .week-header span {
+      font-size: .78rem;
+      color: var(--mid);
+      font-weight: 300;
+    }
+
+    .week-body {
+      padding: 1.2rem 1.4rem;
+      background: #fff;
+    }
+
+    .week-body ul {
+      list-style: none;
+      padding: 0; margin: 0;
+    }
+
+    .week-body ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+      font-size: .88rem;
+      color: var(--mid);
+      font-weight: 300;
+      padding: .4rem 0;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+
+    .week-body ul li:last-child { border-bottom: none; }
+
+    .week-body ul li i {
+      color: var(--rose);
+      font-size: .85rem;
+      margin-top: .2rem;
+      flex-shrink: 0;
+    }
+
+    /* ===========================
+       RESOURCES SECTION (float used)
+    =========================== */
+    .resources-section {
+      padding: 5rem 0;
+      background: var(--cream);
+    }
+
+    .resource-float-icon {
+      float: left;
+      width: 56px; height: 56px;
+      background: var(--blush);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--rose);
+      font-size: 1.5rem;
+      margin: 0 1.2rem 1rem 0;
+      flex-shrink: 0;
+    }
+
+    .resource-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .resource-item:last-child { margin-bottom: 0; }
+
+    .resource-item h5 {
+      font-size: .95rem;
+      color: var(--charcoal);
+      margin-bottom: .2rem;
+    }
+
+    .resource-item p {
+      font-size: .85rem;
+      color: var(--mid);
+      font-weight: 300;
+      margin: 0 0 .4rem;
+      line-height: 1.6;
+    }
+
+    .resource-item a {
+      font-size: .82rem;
+      color: var(--rose);
+      font-weight: 600;
+      transition: color .2s;
+    }
+
+    .resource-item a:hover { color: var(--rose-deep); }
+
+    /* ===========================
+       TIPS BANNER
+    =========================== */
+    .tips-section {
+      padding: 5rem 0;
+      background: #fff;
+    }
+
+    .tip-card {
+      background: var(--blush);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.5rem;
+      height: 100%;
+    }
+
+    .tip-card i {
+      font-size: 1.6rem;
+      color: var(--rose);
+      margin-bottom: .75rem;
+      display: block;
+    }
+
+    .tip-card h5 {
+      font-size: 1rem;
+      color: var(--charcoal);
+      margin-bottom: .4rem;
+    }
+
+    .tip-card p {
+      font-size: .88rem;
+      color: var(--mid);
+      font-weight: 300;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,.65);
+      padding: 3rem 0 2rem;
+    }
+
+    footer .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--rose);
+      margin-bottom: .5rem;
+    }
+
+    footer p { font-size: .85rem; line-height: 1.7; }
+
+    footer h6 {
+      color: rgba(255,255,255,.9);
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+    }
+
+    footer ul { list-style: none; padding: 0; margin: 0; }
+    footer ul li { margin-bottom: .5rem; }
+
+    footer ul li a {
+      color: rgba(255,255,255,.55);
+      font-size: .85rem;
+      transition: color .2s;
+    }
+
+    footer ul li a:hover { color: var(--rose); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .75rem;
+      font-size: .8rem;
+    }
+
+    .footer-legal a {
+      color: rgba(255,255,255,.45);
+      margin-left: 1.2rem;
+      transition: color .2s;
+    }
+
+    .footer-legal a:hover { color: var(--rose); }
+
+    /* ===========================
+       MEDIA QUERIES
+    =========================== */
+    @media (max-width: 576px) {
+      .resource-float-icon {
+        float: none;
+        margin: 0 0 .75rem;
+      }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-legal a:first-child { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================
+       NAVBAR
+  ===================== -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="myHomePage.html">She<span>Builds</span></a>
+
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+
+          <li class="nav-item">
+            <a class="nav-link" href="myHomePage.html">Home</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="blueprint.html"
+               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Blueprint
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="career-quiz.html">
+                <i class="bi bi-clipboard-check me-2"></i>Career Quiz
+              </a></li>
+              <li><a class="dropdown-item" href="learningPath.html">
+                <i class="bi bi-map me-2"></i>Learning Path
+              </a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="history.html">History</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="aboutme.html">About Me</a>
+          </li>
+
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-rose" href="contact.html">Contact</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =====================
+       PAGE HEADER
+  ===================== -->
+  <section class="page-header">
+    <div class="container position-relative">
+      <span class="section-label">30 days to your first project</span>
+      <h1>Learning Path</h1>
+      <p>Pick a track, follow the roadmap, and build something real in 30 days — no experience required.</p>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       TRACK SELECTOR
+  ===================== -->
+  <section class="track-section">
+    <div class="container">
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-6 text-center">
+          <span class="section-label">Choose your track</span>
+          <h2 style="font-size:clamp(1.6rem,3vw,2.2rem); font-weight:900; color:var(--charcoal);">
+            Which path are you on?
+          </h2>
+        </div>
+      </div>
+      <div class="row justify-content-center g-3">
+        <div class="col-6 col-md-3">
+          <button class="track-btn active" onclick="switchTrack('html', this)">
+            <i class="bi bi-code-slash"></i>
+            <strong>HTML & CSS</strong>
+            <span>Build websites from scratch</span>
+          </button>
+        </div>
+        <div class="col-6 col-md-3">
+          <button class="track-btn" onclick="switchTrack('python', this)">
+            <i class="bi bi-braces"></i>
+            <strong>Python</strong>
+            <span>Learn your first language</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       ROADMAP (Bootstrap Cards)
+  ===================== -->
+  <section class="roadmap-section">
+    <div class="container">
+
+      <!-- HTML Track -->
+      <div id="track-html">
+        <div class="row mb-4">
+          <div class="col">
+            <span class="section-label">HTML & CSS Track</span>
+            <h2 style="font-size:clamp(1.6rem,3vw,2.2rem); font-weight:900; color:var(--charcoal);">
+              Your 30-day web dev roadmap.
+            </h2>
+          </div>
+        </div>
+        <div class="row g-4">
+
+          <div class="col-sm-6 col-lg-3">
+            <div class="card week-card border-0 h-100">
+              <div class="week-header">
+                <div class="week-num">W1</div>
+                <div>
+                  <h4 class="card-title">The Basics</h4>
+                  <span>Days 1–7</span>
+                </div>
+              </div>
+              <div class="week-body">
+                <ul>
+                  <li><i class="bi bi-check2"></i>What is HTML? Tags & structure</li>
+                  <li><i class="bi bi-check2"></i>Headings, paragraphs, links, images</li>
+                  <li><i class="bi bi-check2"></i>Lists — ordered and unordered</li>
+                  <li><i class="bi bi-check2"></i>Build your first webpage</li>
+                  <li><i class="bi bi-check2"></i>Intro to CSS — colors and fonts</li>
+                  <li><i class="bi bi-check2"></i>The box model: margin, padding, border</li>
+                  <li><i class="bi bi-check2"></i>Style your first page</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-3">
+            <div class="card week-card border-0 h-100">
+              <div class="week-header">
+                <div class="week-num">W2</div>
+                <div>
+                  <h4 class="card-title">Layout</h4>
+                  <span>Days 8–14</span>
+                </div>
+              </div>
+              <div class="week-body">
+                <ul>
+                  <li><i class="bi bi-check2"></i>CSS Flexbox — rows and columns</li>
+                  <li><i class="bi bi-check2"></i>Float and clear</li>
+                  <li><i class="bi bi-check2"></i>Navigation bars</li>
+                  <li><i class="bi bi-check2"></i>Intro to Bootstrap</li>
+                  <li><i class="bi bi-check2"></i>Bootstrap grid system</li>
+                  <li><i class="bi bi-check2"></i>Bootstrap cards and buttons</li>
+                  <li><i class="bi bi-check2"></i>Build a multi-section layout</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-3">
+            <div class="card week-card border-0 h-100">
+              <div class="week-header">
+                <div class="week-num">W3</div>
+                <div>
+                  <h4 class="card-title">Interactivity</h4>
+                  <span>Days 15–21</span>
+                </div>
+              </div>
+              <div class="week-body">
+                <ul>
+                  <li><i class="bi bi-check2"></i>Intro to JavaScript</li>
+                  <li><i class="bi bi-check2"></i>Variables, functions, events</li>
+                  <li><i class="bi bi-check2"></i>DOM — changing page content</li>
+                  <li><i class="bi bi-check2"></i>Forms and input validation</li>
+                  <li><i class="bi bi-check2"></i>Responsive design basics</li>
+                  <li><i class="bi bi-check2"></i>CSS media queries</li>
+                  <li><i class="bi bi-check2"></i>Mobile-first thinking</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-3">
+            <div class="card week-card border-0 h-100">
+              <div class="week-header">
+                <div class="week-num">W4</div>
+                <div>
+                  <h4 class="card-title">Your Project</h4>
+                  <span>Days 22–30</span>
+                </div>
+              </div>
+              <div class="week-body">
+                <ul>
+                  <li><i class="bi bi-check2"></i>Plan your personal site</li>
+                  <li><i class="bi bi-check2"></i>Build Home + About pages</li>
+                  <li><i class="bi bi-check2"></i>Add a contact form</li>
+                  <li><i class="bi bi-check2"></i>Polish with CSS animations</li>
+                  <li><i class="bi bi-check2"></i>Create a GitHub account</li>
+                  <li><i class="bi bi-check2"></i>Push your project to GitHub</li>
+                  <li><i class="bi bi-check2"></i>Deploy with GitHub Pages 🎉</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Python Track -->
+      <div id="track-python" style="display:none;">
+        <div class="row mb-4">
+          <div class="col">
+            <span class="section-label">Python Track</span>
+            <h2 style="font-size:clamp(1.6rem,3vw,2.2rem); font-weight:900; color:var(--charcoal);">
+              Your 30-day Python roadmap.
+            </h2>
+          </div>
+        </div>
+        <div class="row g-4">
+
+          <div class="col-sm-6 col-lg-3">
+            <div class="card week-card border-0 h-100">
+              <div class="week-header">
+                <div class="week-num">W1</div>
+                <div>
+                  <h4 class="card-title">Getting Started</h4>
+                  <span>Days 1–7</span>
+                </div>
+              </div>
+              <div class="week-body">
+                <ul>
+                  <li><i class="bi bi-check2"></i>Install Python & VS Code</li>
+                  <li><i class="bi bi-check2"></i>print(), variables, data types</li>
+                  <li><i class="bi bi-check2"></i>Strings and string methods</li>
+                  <li><i class="bi bi-check2"></i>User input with input()</li>
+                  <li><i class="bi bi-check2"></i>Math operators</li>
+                  <li><i class="bi bi-check2"></i>If / elif / else statements</li>
+                  <li><i class="bi bi-check2"></i>Build a simple calculator</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-3">
+            <div class="card week-card border-0 h-100">
+              <div class="week-header">
+                <div class="week-num">W2</div>
+                <div>
+                  <h4 class="card-title">Loops & Lists</h4>
+                  <span>Days 8–14</span>
+                </div>
+              </div>
+              <div class="week-body">
+                <ul>
+                  <li><i class="bi bi-check2"></i>Lists — create and access</li>
+                  <li><i class="bi bi-check2"></i>For loops and while loops</li>
+                  <li><i class="bi bi-check2"></i>Loop through a list</li>
+                  <li><i class="bi bi-check2"></i>Dictionaries — key/value pairs</li>
+                  <li><i class="bi bi-check2"></i>Functions — def and return</li>
+                  <li><i class="bi bi-check2"></i>Parameters and arguments</li>
+                  <li><i class="bi bi-check2"></i>Build a quiz game</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-3">
+            <div class="card week-card border-0 h-100">
+              <div class="week-header">
+                <div class="week-num">W3</div>
+                <div>
+                  <h4 class="card-title">Files & Logic</h4>
+                  <span>Days 15–21</span>
+                </div>
+              </div>
+              <div class="week-body">
+                <ul>
+                  <li><i class="bi bi-check2"></i>Reading and writing files</li>
+                  <li><i class="bi bi-check2"></i>Try / except error handling</li>
+                  <li><i class="bi bi-check2"></i>Modules and import</li>
+                  <li><i class="bi bi-check2"></i>Random and math modules</li>
+                  <li><i class="bi bi-check2"></i>Intro to classes and objects</li>
+                  <li><i class="bi bi-check2"></i>List comprehensions</li>
+                  <li><i class="bi bi-check2"></i>Build a to-do list app</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-3">
+            <div class="card week-card border-0 h-100">
+              <div class="week-header">
+                <div class="week-num">W4</div>
+                <div>
+                  <h4 class="card-title">Your Project</h4>
+                  <span>Days 22–30</span>
+                </div>
+              </div>
+              <div class="week-body">
+                <ul>
+                  <li><i class="bi bi-check2"></i>Plan your final project idea</li>
+                  <li><i class="bi bi-check2"></i>Build a command-line app</li>
+                  <li><i class="bi bi-check2"></i>Add file saving / loading</li>
+                  <li><i class="bi bi-check2"></i>Test and fix your bugs</li>
+                  <li><i class="bi bi-check2"></i>Write a README file</li>
+                  <li><i class="bi bi-check2"></i>Push to GitHub</li>
+                  <li><i class="bi bi-check2"></i>Share your project 🎉</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =====================
+       FREE RESOURCES (float used)
+  ===================== -->
+  <section class="resources-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <span class="section-label">Free tools</span>
+          <h2 style="font-size:clamp(1.6rem,3vw,2.2rem); font-weight:900; color:var(--charcoal); margin-bottom:.75rem;">
+            Everything here is free.
+          </h2>
+          <p style="color:var(--mid); font-weight:300; line-height:1.75;">
+            You don't need to spend a dollar to learn to code. Every resource below is
+            completely free and beginner-friendly.
+          </p>
+        </div>
+
+        <div class="col-lg-8">
+
+          <div class="resource-item clearfix">
+            <div class="resource-float-icon"><i class="bi bi-code-slash"></i></div>
+            <h5>freeCodeCamp</h5>
+            <p>Full HTML, CSS, and JavaScript curriculum with certificates. Completely free, self-paced.</p>
+            <a href="https://freecodecamp.org" target="_blank" rel="noopener">freecodecamp.org &nbsp;<i class="bi bi-box-arrow-up-right"></i></a>
+          </div>
+
+          <div class="resource-item clearfix">
+            <div class="resource-float-icon"><i class="bi bi-braces"></i></div>
+            <h5>Kaggle — Python Course</h5>
+            <p>Google's free Python course designed for beginners. Includes hands-on notebooks you run in your browser.</p>
+            <a href="https://kaggle.com/learn/python" target="_blank" rel="noopener">kaggle.com/learn/python &nbsp;<i class="bi bi-box-arrow-up-right"></i></a>
+          </div>
+
+          <div class="resource-item clearfix">
+            <div class="resource-float-icon"><i class="bi bi-github"></i></div>
+            <h5>GitHub & GitHub Pages</h5>
+            <p>Store your code and publish your site for free. Every developer needs a GitHub account.</p>
+            <a href="https://github.com" target="_blank" rel="noopener">github.com &nbsp;<i class="bi bi-box-arrow-up-right"></i></a>
+          </div>
+
+          <div class="resource-item clearfix">
+            <div class="resource-float-icon"><i class="bi bi-book-fill"></i></div>
+            <h5>MDN Web Docs</h5>
+            <p>The definitive reference for HTML, CSS, and JavaScript. Bookmark this — you'll use it constantly.</p>
+            <a href="https://developer.mozilla.org" target="_blank" rel="noopener">developer.mozilla.org &nbsp;<i class="bi bi-box-arrow-up-right"></i></a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       TIPS
+  ===================== -->
+  <section class="tips-section">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col text-center">
+          <span class="section-label">Before you start</span>
+          <h2 style="font-size:clamp(1.6rem,3vw,2.2rem); font-weight:900; color:var(--charcoal);">
+            Tips from someone who's been there.
+          </h2>
+        </div>
+      </div>
+      <div class="row g-3">
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="tip-card">
+            <i class="bi bi-calendar-check-fill"></i>
+            <h5>Show up every day</h5>
+            <p>Even 20 minutes daily beats a 4-hour session once a week. Consistency is everything when learning to code.</p>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="tip-card">
+            <i class="bi bi-bug-fill"></i>
+            <h5>Bugs are normal</h5>
+            <p>Every developer googles error messages. Getting stuck doesn't mean you're bad at this — it means you're learning.</p>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="tip-card">
+            <i class="bi bi-pencil-fill"></i>
+            <h5>Type it, don't copy it</h5>
+            <p>Typing code by hand — even from a tutorial — builds muscle memory and helps you actually understand what you're writing.</p>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="tip-card">
+            <i class="bi bi-trophy-fill"></i>
+            <h5>Build something real</h5>
+            <p>The fastest way to learn is to have a project you actually care about. Your first site can be about anything — make it yours.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-5">
+        <a href="career-quiz.html" class="btn btn-outline-rose me-3">← Back to Quiz</a>
+        <a href="contact.html" class="btn btn-rose">Get in touch →</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       FOOTER
+  ===================== -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+
+        <div class="col-lg-4">
+          <div class="brand">SheBuilds</div>
+          <p>A platform built for young women and high school girls who are curious about tech and STEM — by someone who's been exactly where you are.</p>
+        </div>
+
+        <div class="col-6 col-lg-2 offset-lg-1">
+          <h6>Explore</h6>
+          <ul>
+            <li><a href="myHomePage.html">Home</a></li>
+            <li><a href="blueprint.html">Blueprint</a></li>
+            <li><a href="career-quiz.html">Career Quiz</a></li>
+            <li><a href="learningPath.html">Learning Path</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-lg-2">
+          <h6>Learn</h6>
+          <ul>
+            <li><a href="history.html">History</a></li>
+            <li><a href="aboutme.html">About Me</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h6>Connect</h6>
+          <ul>
+            <li>
+              <a href="https://github.com" target="_blank" rel="noopener">
+                <i class="bi bi-github me-2"></i>GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com" target="_blank" rel="noopener">
+                <i class="bi bi-linkedin me-2"></i>LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 SheBuilds by Niya Emery. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Privacy Statement</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+  <!-- =====================
+       TRACK SWITCH JAVASCRIPT
+  ===================== -->
+  <script>
+    function switchTrack(track, btn) {
+      /* hide all tracks */
+      document.getElementById('track-html').style.display = 'none';
+      document.getElementById('track-python').style.display = 'none';
+
+      /* show selected track */
+      document.getElementById('track-' + track).style.display = 'block';
+
+      /* update active button */
+      document.querySelectorAll('.track-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
