@@ -1,0 +1,638 @@
+<!-- DEVELOPER: Niya Emery, IS117, Spring 2026 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SheBuilds | Contact</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <style>
+    /* ===========================
+       CSS VARIABLES
+    =========================== */
+    :root {
+      --rose:      #e8557a;
+      --rose-deep: #c73d62;
+      --blush:     #fce8ee;
+      --petal:     #f9d0dc;
+      --mauve:     #8b3a55;
+      --cream:     #fff8f9;
+      --charcoal:  #2b1a20;
+      --mid:       #6b4554;
+      --border:    rgba(232,85,122,.18);
+      --shadow:    rgba(199,61,98,.12);
+    }
+
+    /* ===========================
+       BASE
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    a { text-decoration: none; }
+
+    /* ===========================
+       NAVBAR
+    =========================== */
+    .navbar {
+      background: rgba(255,248,249,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--rose-deep) !important;
+      letter-spacing: -0.5px;
+    }
+
+    .navbar-brand span { color: var(--charcoal); }
+
+    .nav-link {
+      color: var(--mid) !important;
+      font-weight: 500;
+      font-size: .92rem;
+      padding: .4rem .9rem !important;
+      border-radius: 20px;
+      transition: background .2s, color .2s;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+      background: var(--petal);
+      color: var(--rose-deep) !important;
+    }
+
+    .dropdown-menu {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px var(--shadow);
+      background: #fff;
+      padding: .5rem;
+    }
+
+    .dropdown-item {
+      border-radius: 8px;
+      font-size: .9rem;
+      color: var(--mid);
+      font-weight: 500;
+      padding: .45rem .9rem;
+      transition: background .15s;
+    }
+
+    .dropdown-item:hover {
+      background: var(--blush);
+      color: var(--rose-deep);
+    }
+
+    .navbar-toggler {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23c73d62' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .btn-rose {
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: .75rem 2rem;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px var(--shadow);
+    }
+
+    .btn-rose:hover {
+      background: var(--rose-deep);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ===========================
+       PAGE HEADER
+    =========================== */
+    .page-header {
+      background: linear-gradient(135deg, var(--blush) 0%, var(--cream) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 0 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--petal) 0%, transparent 70%);
+      top: -200px; left: -100px;
+      border-radius: 50%;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: .75rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--charcoal);
+      margin-bottom: .75rem;
+    }
+
+    .page-header p {
+      color: var(--mid);
+      font-size: 1rem;
+      font-weight: 300;
+      max-width: 460px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ===========================
+       CONTACT SECTION
+    =========================== */
+    .contact-section {
+      padding: 5rem 0;
+      background: #fff;
+    }
+
+    /* ===========================
+       FORM STYLES
+    =========================== */
+    .contact-form-wrap {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+    }
+
+    .form-label {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: .4rem;
+    }
+
+    .form-control, .form-select {
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: .7rem 1rem;
+      font-size: .9rem;
+      color: var(--charcoal);
+      background: #fff;
+      transition: border .2s, box-shadow .2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 3px rgba(232,85,122,.12);
+      outline: none;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .btn-submit {
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: .8rem 2.4rem;
+      font-weight: 600;
+      font-size: 1rem;
+      width: 100%;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px var(--shadow);
+      cursor: pointer;
+    }
+
+    .btn-submit:hover {
+      background: var(--rose-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px var(--shadow);
+    }
+
+    /* ===========================
+       CONTACT INFO CARDS
+    =========================== */
+    .info-card {
+      background: var(--blush);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      transition: transform .2s;
+    }
+
+    .info-card:hover { transform: translateY(-3px); }
+
+    .info-card:last-child { margin-bottom: 0; }
+
+    .info-icon {
+      width: 46px; height: 46px;
+      background: var(--rose);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .info-card h5 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: .2rem;
+    }
+
+    .info-card p {
+      font-size: .88rem;
+      color: var(--mid);
+      font-weight: 300;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .info-card a {
+      color: var(--rose);
+      font-weight: 500;
+      font-size: .88rem;
+      transition: color .2s;
+    }
+
+    .info-card a:hover { color: var(--rose-deep); }
+
+    /* ===========================
+       SOCIAL STRIP
+    =========================== */
+    .social-strip {
+      display: flex;
+      gap: .75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: .5rem 1.1rem;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--mid);
+      transition: background .2s, color .2s, border-color .2s;
+    }
+
+    .social-btn:hover {
+      background: var(--petal);
+      color: var(--rose-deep);
+      border-color: var(--rose);
+    }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,.65);
+      padding: 3rem 0 2rem;
+    }
+
+    footer .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--rose);
+      margin-bottom: .5rem;
+    }
+
+    footer p { font-size: .85rem; line-height: 1.7; }
+
+    footer h6 {
+      color: rgba(255,255,255,.9);
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+    }
+
+    footer ul { list-style: none; padding: 0; margin: 0; }
+    footer ul li { margin-bottom: .5rem; }
+
+    footer ul li a {
+      color: rgba(255,255,255,.55);
+      font-size: .85rem;
+      transition: color .2s;
+    }
+
+    footer ul li a:hover { color: var(--rose); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .75rem;
+      font-size: .8rem;
+    }
+
+    .footer-legal a {
+      color: rgba(255,255,255,.45);
+      margin-left: 1.2rem;
+      transition: color .2s;
+    }
+
+    .footer-legal a:hover { color: var(--rose); }
+
+    /* ===========================
+       MEDIA QUERIES
+    =========================== */
+    @media (max-width: 576px) {
+      .contact-form-wrap { padding: 1.5rem 1rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-legal a:first-child { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================
+       NAVBAR
+  ===================== -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="myHomePage.html">She<span>Builds</span></a>
+
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+
+          <li class="nav-item">
+            <a class="nav-link" href="myHomePage.html">Home</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="blueprint.html"
+               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Blueprint
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="career-quiz.html">
+                <i class="bi bi-clipboard-check me-2"></i>Career Quiz
+              </a></li>
+              <li><a class="dropdown-item" href="learning-path.html">
+                <i class="bi bi-map me-2"></i>Learning Path
+              </a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="history.html">History</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About Me</a>
+          </li>
+
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-rose active" href="contact.html">Contact</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =====================
+       PAGE HEADER
+  ===================== -->
+  <section class="page-header">
+    <div class="container position-relative">
+      <span class="section-label">Say hello</span>
+      <h1>Contact Me</h1>
+      <p>Have a question, idea, or just want to connect? Fill out the form and I'll get back to you.</p>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       CONTACT SECTION
+  ===================== -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="row g-5 align-items-start">
+
+        <!-- LEFT: Contact Form -->
+        <div class="col-lg-7">
+          <div class="contact-form-wrap">
+            <h2 style="font-size:1.6rem; margin-bottom:1.5rem;">Send a message</h2>
+
+            <!-- Contact form — submit button does not need to function per rubric -->
+            <div class="row g-3">
+
+              <div class="col-sm-6">
+                <label class="form-label" for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="Jane" />
+              </div>
+
+              <div class="col-sm-6">
+                <label class="form-label" for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Doe" />
+              </div>
+
+              <div class="col-12">
+                <label class="form-label" for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="jane@email.com" />
+              </div>
+
+              <div class="col-12">
+                <label class="form-label" for="subject">Subject</label>
+                <select class="form-select" id="subject">
+                  <option value="" disabled selected>Select a topic...</option>
+                  <option>General Question</option>
+                  <option>Career Advice</option>
+                  <option>Learning Path Help</option>
+                  <option>Collaboration</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label" for="message">Message</label>
+                <textarea class="form-control" id="message" placeholder="What's on your mind?"></textarea>
+              </div>
+
+              <div class="col-12 mt-2">
+                <button type="button" class="btn-submit">Send Message &nbsp;→</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Info Cards -->
+        <div class="col-lg-5">
+
+          <h2 style="font-size:1.6rem; margin-bottom:1.5rem;">Other ways to reach me</h2>
+
+          <div class="info-card">
+            <div class="info-icon"><i class="bi bi-envelope-fill"></i></div>
+            <div>
+              <h5>Email</h5>
+              <p>Best for detailed questions or collaborations.</p>
+              <a href="mailto:niya@shebuilds.com">niya@shebuilds.com</a>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon"><i class="bi bi-geo-alt-fill"></i></div>
+            <div>
+              <h5>Location</h5>
+              <p>Based in New Jersey.<br>NJIT — Newark, NJ</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon"><i class="bi bi-clock-fill"></i></div>
+            <div>
+              <h5>Response Time</h5>
+              <p>I typically respond within 2–3 business days. Thanks for your patience!</p>
+            </div>
+          </div>
+
+          <!-- Social links -->
+          <div class="social-strip">
+            <a href="https://github.com" target="_blank" rel="noopener" class="social-btn">
+              <i class="bi bi-github"></i> GitHub
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-btn">
+              <i class="bi bi-linkedin"></i> LinkedIn
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       FOOTER
+  ===================== -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+
+        <div class="col-lg-4">
+          <div class="brand">SheBuilds</div>
+          <p>A platform built for young women and high school girls who are curious about tech and STEM — by someone who's been exactly where you are.</p>
+        </div>
+
+        <div class="col-6 col-lg-2 offset-lg-1">
+          <h6>Explore</h6>
+          <ul>
+            <li><a href="myHomePage.html">Home</a></li>
+            <li><a href="blueprint.html">Blueprint</a></li>
+            <li><a href="career-quiz.html">Career Quiz</a></li>
+            <li><a href="learning-path.html">Learning Path</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-lg-2">
+          <h6>Learn</h6>
+          <ul>
+            <li><a href="history.html">History</a></li>
+            <li><a href="about.html">About Me</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h6>Connect</h6>
+          <ul>
+            <li>
+              <a href="https://github.com" target="_blank" rel="noopener">
+                <i class="bi bi-github me-2"></i>GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com" target="_blank" rel="noopener">
+                <i class="bi bi-linkedin me-2"></i>LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 SheBuilds by Niya Emery. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Privacy Statement</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

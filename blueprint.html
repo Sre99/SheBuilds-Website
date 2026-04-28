@@ -1,0 +1,821 @@
+<!-- DEVELOPER: Niya Emery, IS117, Spring 2026 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SheBuilds | Blueprint</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <style>
+    /* ===========================
+       CSS VARIABLES
+    =========================== */
+    :root {
+      --rose:      #e8557a;
+      --rose-deep: #c73d62;
+      --blush:     #fce8ee;
+      --petal:     #f9d0dc;
+      --mauve:     #8b3a55;
+      --cream:     #fff8f9;
+      --charcoal:  #2b1a20;
+      --mid:       #6b4554;
+      --border:    rgba(232,85,122,.18);
+      --shadow:    rgba(199,61,98,.12);
+    }
+
+    /* ===========================
+       BASE
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    a { text-decoration: none; }
+
+    /* ===========================
+       NAVBAR
+    =========================== */
+    .navbar {
+      background: rgba(255,248,249,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--rose-deep) !important;
+      letter-spacing: -0.5px;
+    }
+
+    .navbar-brand span { color: var(--charcoal); }
+
+    .nav-link {
+      color: var(--mid) !important;
+      font-weight: 500;
+      font-size: .92rem;
+      padding: .4rem .9rem !important;
+      border-radius: 20px;
+      transition: background .2s, color .2s;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+      background: var(--petal);
+      color: var(--rose-deep) !important;
+    }
+
+    .dropdown-menu {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px var(--shadow);
+      background: #fff;
+      padding: .5rem;
+    }
+
+    .dropdown-item {
+      border-radius: 8px;
+      font-size: .9rem;
+      color: var(--mid);
+      font-weight: 500;
+      padding: .45rem .9rem;
+      transition: background .15s;
+    }
+
+    .dropdown-item:hover {
+      background: var(--blush);
+      color: var(--rose-deep);
+    }
+
+    .navbar-toggler {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23c73d62' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .btn-rose {
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: .75rem 2rem;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px var(--shadow);
+    }
+
+    .btn-rose:hover {
+      background: var(--rose-deep);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline-rose {
+      background: transparent;
+      color: var(--rose-deep);
+      border: 2px solid var(--rose);
+      border-radius: 30px;
+      padding: .73rem 1.8rem;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: background .2s, color .2s, transform .15s;
+    }
+
+    .btn-outline-rose:hover {
+      background: var(--petal);
+      color: var(--rose-deep);
+      transform: translateY(-2px);
+    }
+
+    /* ===========================
+       PAGE HEADER
+    =========================== */
+    .page-header {
+      background: linear-gradient(135deg, var(--blush) 0%, var(--cream) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 4.5rem 0 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, var(--petal) 0%, transparent 70%);
+      top: -250px; right: -150px;
+      border-radius: 50%;
+    }
+
+    .page-header::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, var(--blush) 0%, transparent 70%);
+      bottom: -100px; left: -50px;
+      border-radius: 50%;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: .75rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      color: var(--charcoal);
+      margin-bottom: .75rem;
+    }
+
+    .page-header p {
+      color: var(--mid);
+      font-size: 1rem;
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    /* step pills in header */
+    .step-pills {
+      display: flex;
+      justify-content: center;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+
+    .step-pill {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: .4rem 1rem;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--mid);
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .step-pill i { color: var(--rose); }
+
+    /* ===========================
+       HUB CARDS (main nav cards)
+    =========================== */
+    .hub-section {
+      padding: 5rem 0;
+      background: #fff;
+    }
+
+    .hub-card {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      height: 100%;
+      transition: transform .25s, box-shadow .25s;
+      background: #fff;
+    }
+
+    .hub-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px var(--shadow);
+    }
+
+    .hub-card-top {
+      padding: 2.2rem 2rem 1.5rem;
+      position: relative;
+    }
+
+    .hub-card-top.quiz  { background: linear-gradient(135deg, #fce8ee, #fff8f9); }
+    .hub-card-top.path  { background: linear-gradient(135deg, #fdf0f4, #fff8f9); }
+
+    .hub-card-icon {
+      width: 60px; height: 60px;
+      background: var(--rose);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 6px 18px var(--shadow);
+    }
+
+    .hub-card-top h3 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--charcoal);
+      margin-bottom: .5rem;
+    }
+
+    .hub-card-top p {
+      font-size: .92rem;
+      color: var(--mid);
+      font-weight: 300;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .hub-card-body {
+      padding: 1.5rem 2rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .hub-card-body ul {
+      list-style: none;
+      padding: 0; margin: 0 0 1.5rem;
+    }
+
+    .hub-card-body ul li {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .55rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .88rem;
+      color: var(--mid);
+      font-weight: 400;
+    }
+
+    .hub-card-body ul li:last-child { border-bottom: none; }
+
+    .hub-card-body ul li i { color: var(--rose); font-size: 1rem; }
+
+    /* ===========================
+       HOW IT WORKS STRIP
+    =========================== */
+    .how-section {
+      padding: 5rem 0;
+      background: var(--cream);
+    }
+
+    .how-section .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 900;
+      color: var(--charcoal);
+      line-height: 1.15;
+      margin-bottom: .5rem;
+    }
+
+    .step-card {
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .step-num {
+      width: 52px; height: 52px;
+      background: var(--rose);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin: 0 auto 1.2rem;
+      box-shadow: 0 6px 18px var(--shadow);
+    }
+
+    .step-card h4 {
+      font-size: 1.05rem;
+      color: var(--charcoal);
+      margin-bottom: .5rem;
+    }
+
+    .step-card p {
+      font-size: .88rem;
+      color: var(--mid);
+      font-weight: 300;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* connector line between steps */
+    .step-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 1.5rem;
+      color: var(--petal);
+      font-size: 1.5rem;
+    }
+
+    /* ===========================
+       MAJORS TABLE
+    =========================== */
+    .majors-section {
+      padding: 5rem 0;
+      background: #fff;
+    }
+
+    /* float image in majors section */
+    .majors-float-img {
+      float: right;
+      margin: 0 0 1.5rem 2rem;
+      width: 160px; height: 160px;
+      background: linear-gradient(135deg, var(--petal), var(--blush));
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--rose);
+      font-size: 4.5rem;
+      box-shadow: 0 10px 30px var(--shadow);
+      flex-shrink: 0;
+    }
+
+    .majors-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .9rem;
+    }
+
+    .majors-table thead tr {
+      background: var(--rose);
+      color: #fff;
+    }
+
+    .majors-table thead th {
+      padding: .9rem 1rem;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: .03em;
+    }
+
+    .majors-table thead th:first-child { border-radius: 12px 0 0 0; }
+    .majors-table thead th:last-child  { border-radius: 0 12px 0 0; }
+
+    .majors-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background .15s;
+    }
+
+    .majors-table tbody tr:hover { background: var(--blush); }
+
+    .majors-table tbody td {
+      padding: .85rem 1rem;
+      color: var(--mid);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .majors-table tbody td:first-child {
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,.65);
+      padding: 3rem 0 2rem;
+    }
+
+    footer .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--rose);
+      margin-bottom: .5rem;
+    }
+
+    footer p { font-size: .85rem; line-height: 1.7; }
+
+    footer h6 {
+      color: rgba(255,255,255,.9);
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+    }
+
+    footer ul { list-style: none; padding: 0; margin: 0; }
+    footer ul li { margin-bottom: .5rem; }
+
+    footer ul li a {
+      color: rgba(255,255,255,.55);
+      font-size: .85rem;
+      transition: color .2s;
+    }
+
+    footer ul li a:hover { color: var(--rose); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .75rem;
+      font-size: .8rem;
+    }
+
+    .footer-legal a {
+      color: rgba(255,255,255,.45);
+      margin-left: 1.2rem;
+      transition: color .2s;
+    }
+
+    .footer-legal a:hover { color: var(--rose); }
+
+    /* ===========================
+       MEDIA QUERIES
+    =========================== */
+    @media (max-width: 576px) {
+      .step-connector { display: none; }
+      .majors-float-img { float: none; margin: 0 auto 1.5rem; display: flex; }
+      .majors-table { font-size: .78rem; }
+      .majors-table thead th, .majors-table tbody td { padding: .6rem .6rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-legal a:first-child { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================
+       NAVBAR
+  ===================== -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="myHomePage.html">She<span>Builds</span></a>
+
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+
+          <li class="nav-item">
+            <a class="nav-link" href="myHomePage.html">Home</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="blueprint.html"
+               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Blueprint
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="career-quiz.html">
+                <i class="bi bi-clipboard-check me-2"></i>Career Quiz
+              </a></li>
+              <li><a class="dropdown-item" href="learning-path.html">
+                <i class="bi bi-map me-2"></i>Learning Path
+              </a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="history.html">History</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About Me</a>
+          </li>
+
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-rose" href="contact.html">Contact</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =====================
+       PAGE HEADER
+  ===================== -->
+  <section class="page-header">
+    <div class="container position-relative">
+      <span class="section-label">Your game plan</span>
+      <h1>The Blueprint</h1>
+      <p>
+        Two tools, one roadmap. Take the Career Quiz to find your direction,
+        then follow the Learning Path to start building real skills today.
+      </p>
+      <div class="step-pills">
+        <span class="step-pill"><i class="bi bi-clipboard-check-fill"></i> Career Quiz</span>
+        <span class="step-pill"><i class="bi bi-arrow-right"></i></span>
+        <span class="step-pill"><i class="bi bi-map-fill"></i> Learning Path</span>
+        <span class="step-pill"><i class="bi bi-arrow-right"></i></span>
+        <span class="step-pill"><i class="bi bi-stars"></i> Your Future in Tech</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       HUB CARDS
+  ===================== -->
+  <section class="hub-section">
+    <div class="container">
+      <div class="row g-4">
+
+        <!-- Card 1: Career Quiz -->
+        <div class="col-lg-6">
+          <div class="hub-card">
+            <div class="hub-card-top quiz">
+              <div class="hub-card-icon"><i class="bi bi-clipboard-check-fill"></i></div>
+              <h3>Career Quiz</h3>
+              <p>
+                Not sure which area of tech is right for you? Answer 10 quick questions
+                and we'll match you to a career path based on your personality,
+                strengths, and interests.
+              </p>
+            </div>
+            <div class="hub-card-body">
+              <ul>
+                <li><i class="bi bi-check-circle-fill"></i> Takes about 5 minutes</li>
+                <li><i class="bi bi-check-circle-fill"></i> No tech experience needed</li>
+                <li><i class="bi bi-check-circle-fill"></i> Results: Cybersecurity, Data Science, UX Design, or Web Dev</li>
+                <li><i class="bi bi-check-circle-fill"></i> Links to matching college majors</li>
+              </ul>
+              <a href="career-quiz.html" class="btn btn-rose">Take the Quiz &nbsp;→</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Learning Path -->
+        <div class="col-lg-6">
+          <div class="hub-card">
+            <div class="hub-card-top path">
+              <div class="hub-card-icon"><i class="bi bi-map-fill"></i></div>
+              <h3>Learning Path</h3>
+              <p>
+                A structured 30-day roadmap for beginners. Each week builds on the last —
+                from understanding how the internet works to writing your first
+                Python script and deploying a real webpage.
+              </p>
+            </div>
+            <div class="hub-card-body">
+              <ul>
+                <li><i class="bi bi-check-circle-fill"></i> 30 days, broken into 4 weekly phases</li>
+                <li><i class="bi bi-check-circle-fill"></i> Covers HTML, CSS, and Python basics</li>
+                <li><i class="bi bi-check-circle-fill"></i> Free tools and resources only</li>
+                <li><i class="bi bi-check-circle-fill"></i> Build a real project by the end</li>
+              </ul>
+              <a href="learning-path.html" class="btn btn-rose">Start the Path &nbsp;→</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       HOW IT WORKS
+  ===================== -->
+  <section class="how-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-label">The process</span>
+        <h2 class="how-section section-title">How the Blueprint works.</h2>
+      </div>
+
+      <div class="row align-items-start text-center">
+
+        <div class="col-6 col-md-3">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <h4>Take the Quiz</h4>
+            <p>Answer 10 questions about your interests, work style, and goals.</p>
+          </div>
+        </div>
+
+        <div class="col-md-1 d-none d-md-flex step-connector">
+          <i class="bi bi-arrow-right"></i>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <h4>Get Your Match</h4>
+            <p>Receive a career direction — Cybersecurity, Data Science, UX, or Web Dev.</p>
+          </div>
+        </div>
+
+        <div class="col-md-1 d-none d-md-flex step-connector">
+          <i class="bi bi-arrow-right"></i>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <h4>Follow the Path</h4>
+            <p>Jump into the 30-day roadmap and start building real skills.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       MAJORS CHEAT SHEET (table + float)
+  ===================== -->
+  <section class="majors-section">
+    <div class="container">
+
+      <div class="clearfix mb-4">
+        <!-- Float right image -->
+        <div class="majors-float-img" aria-hidden="true">
+          <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <span class="section-label">Majors cheat sheet</span>
+        <h2 style="font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:900; color:var(--charcoal); line-height:1.15; margin-bottom:.75rem;">
+          Quiz result → College major.
+        </h2>
+        <p style="color:var(--mid); font-weight:300; line-height:1.75; max-width:540px;">
+          Once you know your career direction, here's how it maps to real college
+          programs and what you'd actually study day-to-day.
+        </p>
+      </div>
+
+      <div class="table-responsive">
+        <table class="majors-table">
+          <thead>
+            <tr>
+              <th>Quiz Result</th>
+              <th>College Major</th>
+              <th>What You'll Study</th>
+              <th>Sample Job Titles</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cybersecurity</td>
+              <td>Information Technology / Cybersecurity</td>
+              <td>Network security, ethical hacking, cryptography</td>
+              <td>Security Analyst, Penetration Tester</td>
+            </tr>
+            <tr>
+              <td>Data Science</td>
+              <td>Computer Science / Data Science</td>
+              <td>Statistics, machine learning, Python, SQL</td>
+              <td>Data Analyst, ML Engineer</td>
+            </tr>
+            <tr>
+              <td>UX Design</td>
+              <td>Human-Computer Interaction / Graphic Design</td>
+              <td>User research, prototyping, Figma, psychology</td>
+              <td>UX Designer, Product Designer</td>
+            </tr>
+            <tr>
+              <td>Web Development</td>
+              <td>Computer Science / Web Development</td>
+              <td>HTML, CSS, JavaScript, frameworks, databases</td>
+              <td>Front-End Dev, Full-Stack Engineer</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =====================
+       FOOTER
+  ===================== -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+
+        <div class="col-lg-4">
+          <div class="brand">SheBuilds</div>
+          <p>A platform built for young women and high school girls who are curious about tech and STEM — by someone who's been exactly where you are.</p>
+        </div>
+
+        <div class="col-6 col-lg-2 offset-lg-1">
+          <h6>Explore</h6>
+          <ul>
+            <li><a href="myHomePage.html">Home</a></li>
+            <li><a href="blueprint.html">Blueprint</a></li>
+            <li><a href="career-quiz.html">Career Quiz</a></li>
+            <li><a href="learning-path.html">Learning Path</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-lg-2">
+          <h6>Learn</h6>
+          <ul>
+            <li><a href="history.html">History</a></li>
+            <li><a href="about.html">About Me</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h6>Connect</h6>
+          <ul>
+            <li>
+              <a href="https://github.com" target="_blank" rel="noopener">
+                <i class="bi bi-github me-2"></i>GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com" target="_blank" rel="noopener">
+                <i class="bi bi-linkedin me-2"></i>LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 SheBuilds by Niya Emery. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Privacy Statement</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
